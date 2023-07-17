@@ -81,6 +81,18 @@ Users should be able to add timestamped notes to chatrooms
 
 - Git usage and commit history.
 
+## Deliverables
+
+- Fork the provided GitHub repository and create a new branch for your changes.
+
+- Implement the required backend and frontend changes.
+
+- Commit your code to the branch with clear commit messages.
+
+- Push the branch to your forked repository.
+
+- Submit the link via email to your forked repository for evaluation.
+
 ## Getting Started
 
 ### Running the API
@@ -108,6 +120,13 @@ Finally, we can run the server!
 ```sh
 cd api
 bundle exec rails s
+```
+
+#### Running Tests
+
+```sh
+cd api
+bundle exec rspec
 ```
 
 ### Running the console
