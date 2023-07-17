@@ -1,0 +1,19 @@
+mutation CreateChatroom(
+  $label: String!
+  $callerPhoneNumber: String!
+  $description: String
+  $natureCodeId: ID
+) {
+  createChatroom(
+    input: {
+      label: $label
+      callerPhoneNumber: $callerPhoneNumber
+      description: $description
+      natureCodeId: $natureCodeId
+    }
+  ) {
+    chatroom {
+      ...ChatroomData
+    }
+  }
+}

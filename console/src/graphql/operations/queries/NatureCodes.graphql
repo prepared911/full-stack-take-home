@@ -1,0 +1,6 @@
+query NatureCodes {
+  natureCodes {
+    id
+    name
+  }
+}

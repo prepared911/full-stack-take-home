@@ -1,0 +1,10 @@
+fragment ChatroomData on Chatroom {
+  id
+  label
+  description
+  callerPhoneNumber
+  archived
+  natureCode {
+    ...NatureCodeData
+  }
+}

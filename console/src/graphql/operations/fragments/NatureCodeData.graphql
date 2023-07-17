@@ -1,0 +1,4 @@
+fragment NatureCodeData on NatureCode {
+  id
+  name
+}
