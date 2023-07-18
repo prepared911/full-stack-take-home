@@ -19,7 +19,7 @@ The API has also been set up with GraphQL.
 - You can test the graphql operations by visiting `/graphiql`. You can use tools like [GraphiQL](https://github.com/graphql/graphiql)
   or [Postman](https://www.postman.com/), or `cURL`
 
-The console has been set up with [`graphql-ruby`](https://graphql-ruby.org/), [] [Apollo Client](https://www.apollographql.com/docs/react), [Material UI](https://mui.com/material-ui/getting-started/usage/) and [React Router](https://reactrouter.com/en/main).
+The console has been set up with [`graphql-ruby`](https://graphql-ruby.org/), [Apollo Client](https://www.apollographql.com/docs/react), [Material UI](https://mui.com/material-ui/getting-started/usage/) and [React Router](https://reactrouter.com/en/main).
 
 ## Assignment
 
