@@ -1,6 +1,6 @@
 import { Box, Card, Modal } from "@mui/material";
 import {
-  ChatroomDataFragmentDoc,
+  ChatroomsListDocument,
   useCreateChatroomMutation,
 } from "~src/codegen/graphql";
 import {
@@ -18,23 +18,7 @@ export const CreateChatroomModal: React.FC<CreateChatroomModalProps> = ({
   handleClose,
 }) => {
   const [createChatroom] = useCreateChatroomMutation({
-    update(cache, { data }) {
-      const chatroom = data?.createChatroom?.chatroom;
-      if (!chatroom) return;
-
-      cache.modify({
-        fields: {
-          chatrooms(existingChatrooms = []) {
-            const newChatroomRef = cache.writeFragment({
-              data: chatroom,
-              fragment: ChatroomDataFragmentDoc,
-              fragmentName: "ChatroomData",
-            });
-            return [newChatroomRef, ...existingChatrooms];
-          },
-        },
-      });
-    },
+    refetchQueries: [ChatroomsListDocument],
   });
 
   const handleSubmit: CreateChatroomFormProps["onSubmit"] = async (

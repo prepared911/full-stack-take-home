@@ -19,13 +19,19 @@ The API has also been set up with GraphQL.
 - You can test the graphql operations by visiting `/graphiql`. You can use tools like [GraphiQL](https://github.com/graphql/graphiql)
   or [Postman](https://www.postman.com/), or `cURL`
 
-The console has been set up with [Apollo Client](https://www.apollographql.com/docs/react) and [Material UI](https://mui.com/material-ui/getting-started/usage/) and [React Router](https://reactrouter.com/en/main).
-
-- All GraphQL operations are defined in `console/src/graphql/operations` with `.graphql` files
-
-- You can run `yarn codegen` to generate TypeScript types and React hooks for GraphQL operations
+The console has been set up with [`graphql-ruby`](https://graphql-ruby.org/), [] [Apollo Client](https://www.apollographql.com/docs/react), [Material UI](https://mui.com/material-ui/getting-started/usage/) and [React Router](https://reactrouter.com/en/main).
 
 ## Assignment
+
+### Gotchas
+
+Before you get started, here are a few things to remember:
+
+- This project uses `GraphQL` and it set up to automatically generate TS types and functions from `.graphql` files
+
+  - - All GraphQL operations are defined in `console/src/graphql/operations` with `.graphql` files
+
+  - If you create a new `.graphql` file, remember to run `yarn codegen`!
 
 ### Part 1 - Updating Chatroom Descriptions
 
@@ -47,25 +53,7 @@ Users should be able to resolve chatrooms.
 
 - If confirmed, the chatroom's `archived` field should be updated to `true` and should be removed from the chatrooms page
 
-### Extra Credit - Adding Chatroom Notes
-
-Users should be able to add timestamped notes to chatrooms
-
-- Create a new model `ChatroomNote`, representing a text note on a `Chatroom`
-
-  - A `Chatroom` can have many `ChatroomNote`s
-
-  - `ChatroomNotes` cannot be edited, but they can be created and deleted
-
-- Show all existing `ChatroomNotes` inside of the `ChatroomDetails` card, displaying:
-
-  - The text content of the note
-
-  - The datetime when the note was created
-
-- Add a "Create Note" button to `ChatroomDetails` that allows users to create chatroom notes
-
-- Add a "Delete Note" button on each note
+  NOTE: You'll need to modify Apollo's cache to remove the chatroom from the chatrooms page. Instead of modifying the cache, you can use Apollo's [`refetchQueries`](https://www.apollographql.com/docs/react/data/mutations/#refetching-queries) feature. [Example](console/src/modules/chatroom/CreateChatroomModal.tsx).
 
 ## Expectations
 

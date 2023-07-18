@@ -15,7 +15,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_132218) do
     t.string "label", null: false
     t.string "caller_phone_number", null: false
     t.string "description"
-    t.boolean "archived", null: false
+    t.boolean "resolved", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "nature_code_id"

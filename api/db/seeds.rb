@@ -33,6 +33,6 @@ chatrooms.each do |params|
     caller_phone_number: params[:caller_phone_number],
     description: params[:description],
     nature_code: params[:nature_code],
-    archived: false
+    resolved: false
   )
 end

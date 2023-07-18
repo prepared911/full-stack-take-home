@@ -5,12 +5,11 @@ import { Logo } from "~src/modules/prepared";
 
 const NavButton = styled(Button)(({ theme }) => ({
   color: theme.palette.grey[500],
-  borderBottom: `2px solid transparent`,
-  borderBottomLeftRadius: 0,
-  borderBottomRightRadius: 0,
+  border: `1px solid transparent`,
+  padding: theme.spacing(0.25, 2),
   ".active &": {
     color: theme.palette.primary.main,
-    borderBottomColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
   },
 }));
 
@@ -27,7 +26,7 @@ export const AppLayout: React.FC = () => {
     >
       <AppBar
         position="static"
-        sx={{ flex: 0, flexDirection: "row", alignItems: "center" }}
+        sx={{ flex: 0, flexDirection: "row", alignItems: "center", padding: 1 }}
       >
         <Logo />
         <Box display="flex" alignItems="center" gap={1} marginLeft={2}>

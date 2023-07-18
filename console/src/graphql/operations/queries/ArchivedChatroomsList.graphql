@@ -1,5 +1,5 @@
 query ArchivedChatroomsList {
-  chatrooms(archived: true) {
+  chatrooms(resolved: true) {
     ...ChatroomData
   }
 }

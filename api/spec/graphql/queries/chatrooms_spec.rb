@@ -2,20 +2,20 @@ require "rails_helper"
 
 RSpec.describe "Chatrooms", type: :request do
   let!(:chatrooms) { create_list(:chatroom, 3) }
-  let!(:archived_chatrooms) { create_list(:chatroom, 3, archived: true) }
+  let!(:resolved_chatrooms) { create_list(:chatroom, 3, resolved: true) }
 
-  let(:archived) { false }
-  let(:variables) { { archived: }.to_json }
+  let(:resolved) { false }
+  let(:variables) { { resolved: }.to_json }
   
   let(:query) do
     <<~GQL
-      query Chatrooms($archived: Boolean) {
-        chatrooms(archived: $archived) {
+      query Chatrooms($resolved: Boolean) {
+        chatrooms(resolved: $resolved) {
           id
           label
           description
           callerPhoneNumber
-          archived
+          resolved
           natureCode {
             id
             name
@@ -25,32 +25,33 @@ RSpec.describe "Chatrooms", type: :request do
     GQL
   end
 
-  before { post '/graphql', params: { query:, variables: } }
-
-  context "when archived flag is false" do
-    let(:archived) { false }
+  context "when resolved flag is false" do
+    let(:resolved) { false }
     
-    it "returns all non-archived chatrooms" do
-      response_json = JSON.parse(response.body)
+    it "returns all non-resolved chatrooms" do
+      post '/graphql', params: { query:, variables: }
 
+      response_json = JSON.parse(response.body)
       response_chatroom_ids = response_json['data']['chatrooms'].map { |chatroom| chatroom['id'] }
       response_chatrooms = Chatroom.where(id: response_chatroom_ids)
       
       expect(response_chatrooms.count).to eq(chatrooms.count)
-      expect(response_chatrooms).to all(have_attributes(archived: false))
+      expect(response_chatrooms).to all(have_attributes(resolved: false))
     end
   end
 
-  context "when archived flag is true" do
-    let(:archived) { true }
+  context "when resolved flag is true" do
+    let(:resolved) { true }
     
-    it "returns all archived chatrooms" do
+    it "returns all resolved chatrooms" do
+      post '/graphql', params: { query:, variables: }
+
       response_json = JSON.parse(response.body)
       response_chatroom_ids = response_json['data']['chatrooms'].map { |chatroom| chatroom['id'] }
       response_chatrooms = Chatroom.where(id: response_chatroom_ids)
       
-      expect(response_chatrooms.count).to eq(archived_chatrooms.count)
-      expect(response_chatrooms).to all(have_attributes(archived: true))
+      expect(response_chatrooms.count).to eq(resolved_chatrooms.count)
+      expect(response_chatrooms).to all(have_attributes(resolved: true))
     end
   end
 end

@@ -1,4 +1,8 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 
 import { ArchivePage, ChatroomsPage } from "~src/modules/chatroom";
 import { AppLayout } from "./AppLayout";
@@ -12,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ChatroomsPage />,
+        element: <Navigate to="/chatrooms" replace />,
       },
       {
         path: "chatrooms",

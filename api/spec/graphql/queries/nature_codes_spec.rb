@@ -13,10 +13,10 @@ RSpec.describe "NatureCodes", type: :request do
       }
     GQL
   end
-
-  before { post '/graphql', params: { query: } }
     
   it "returns all nature codes" do
+    post '/graphql', params: { query: }
+    
     response_json = JSON.parse(response.body)
     
     expect(response_json['data']['natureCodes'].count).to eq(nature_codes.count)

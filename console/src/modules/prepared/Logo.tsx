@@ -13,7 +13,7 @@ export const Logo: React.FC = () => {
   const theme = useTheme();
 
   return (
-    <Box display="inline-flex" alignItems="center" padding={1} gap={0.5}>
+    <Box display="inline-flex" alignItems="center" gap={0.5}>
       <LocalPoliceIcon
         htmlColor={theme.palette.primary.main}
         sx={{ fontSize: "1em" }}

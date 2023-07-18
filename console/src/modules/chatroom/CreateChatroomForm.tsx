@@ -9,8 +9,9 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
+
 import { useNatureCodesQuery } from "~src/codegen/graphql";
-import { formatPhoneNumber } from "../utils/formatPhoneNumber";
+import { formatPhoneNumber } from "~src/modules/utils/formatPhoneNumber";
 
 type CreateChatroomFormState = {
   label: string;
@@ -69,9 +70,11 @@ export const CreateChatroomForm: React.FC<CreateChatroomFormProps> = ({
 
   const handleSubmit: React.FormEventHandler = async (event) => {
     event.preventDefault();
+
     setIsSubmitting(true);
     await onSubmit(values);
     setIsSubmitting(false);
+
     handleClose();
   };
 

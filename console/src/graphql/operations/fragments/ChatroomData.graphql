@@ -3,7 +3,7 @@ fragment ChatroomData on Chatroom {
   label
   description
   callerPhoneNumber
-  archived
+  resolved
   natureCode {
     ...NatureCodeData
   }
