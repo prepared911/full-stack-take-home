@@ -6,12 +6,13 @@ import {
   CardProps,
   Collapse,
   IconButton,
+  TextField,
   Typography,
   styled,
 } from "@mui/material";
 import { useState } from "react";
 
-import { ChatroomDataFragment, ChatroomsListDocument, useResolveChatroomMutation} from "~src/codegen/graphql";
+import { ChatroomDataFragment, ArchivedChatroomsListDocument, ChatroomsListDocument, useResolveChatroomMutation, useUpdateChatroomDescriptionMutation} from "~src/codegen/graphql";
 import { ChatroomTags } from "./ChatroomTags";
 
 const ChatroomCard = styled(Card)<CardProps>(({ theme }) => ({
@@ -29,12 +30,79 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
   chatroom,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [editDetails, setEditDetails] = useState(false);
+  const [description, setDescription] = useState(chatroom.description);
+
+  const [descriptionFormText, setDescriptionFormText] = useState(chatroom.description);
 
   const [resolveChatroom] = useResolveChatroomMutation({
-    refetchQueries: [ChatroomsListDocument],
+    refetchQueries: [ChatroomsListDocument, ArchivedChatroomsListDocument], // TODO(awu): this needs to update the archived list as well
   });
 
+  const [updateChatroomDescription] = useUpdateChatroomDescriptionMutation();
+
+  const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (
+    event
+  ) => {
+    const description = event.target.value;
+    setDescriptionFormText( description );
+  };
+
   const natureCodeName = chatroom.natureCode?.name ?? "Uncategorized";
+
+  const EditButton = (
+      <Button
+      size="small"
+      variant="text"
+      startIcon={<Edit />}
+      onClick={() => setEditDetails(true)}
+    >
+      Edit
+    </Button>
+  );
+
+  const DescriptionText = (<Typography variant="body2">
+    {description ?? "No description provided."}
+    </Typography>
+  );
+
+  const DescriptionInputBox = (<TextField
+      size="small"
+      name="description"
+      value={descriptionFormText}
+      multiline
+      onChange={handleTextChange}
+      autoFocus
+    />);
+
+  const SaveButtonHandler = () => {
+    setEditDetails(false);
+    console.log("id is " + chatroom.id + " description is " + descriptionFormText)
+    setDescription(descriptionFormText);
+    updateChatroomDescription({variables: { id: chatroom.id, description: descriptionFormText || '' } });
+  };
+
+  const CancelButtonHandler = () => {
+    setEditDetails(false);
+    setDescriptionFormText(description);
+  };
+
+  const CancelAndSaveButtons = (<>
+    <Button
+      size="small"
+      variant="text"
+      onClick={SaveButtonHandler}
+    >
+      Save
+    </Button>
+    <Button
+      size="small"
+      variant="text"
+      onClick={CancelButtonHandler}
+    >
+    Cancel
+    </Button>
+  </>);
 
   return (
     <ChatroomCard variant="outlined">
@@ -59,10 +127,7 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
                 "Do you really want to resolve this chatroom?"
               )
               if (confirmBox === true) {
-                console.log("should resolve id " + chatroom.id )
                 resolveChatroom({ variables: { id: chatroom.id } })
-              } else {
-                console.log("declined to resolve id " + chatroom.id)
               }
             }}
           >
@@ -76,17 +141,8 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
       <Collapse in={showDetails}>
         <Card sx={{ padding: 2 }}>
           <Typography variant="body1">Description</Typography>
-          <Typography variant="body2">
-            {chatroom.description ?? "No description provided."}
-          </Typography>
-          <Button
-            size="small"
-            variant="text"
-            startIcon={<Edit />}
-            //onClick={() => setShowResolveChatroomModal(true)}
-          >
-            Edit
-          </Button>
+          {editDetails ? DescriptionInputBox : DescriptionText}
+          {editDetails ? CancelAndSaveButtons : EditButton}
         </Card>
       </Collapse>
     </ChatroomCard>
