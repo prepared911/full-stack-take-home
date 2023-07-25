@@ -77,7 +77,6 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
 
   const SaveButtonHandler = () => {
     setEditDetails(false);
-    console.log("id is " + chatroom.id + " description is " + descriptionFormText)
     setDescription(descriptionFormText);
     updateChatroomDescription({variables: { id: chatroom.id, description: descriptionFormText || '' } });
   };
@@ -86,6 +85,27 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
     setEditDetails(false);
     setDescriptionFormText(description);
   };
+
+  const ResolveButton = () => {
+    if (!chatroom.resolved) {
+      return <Button
+        size="small"
+        variant="outlined"
+        onClick={() => {
+          const confirmBox = window.confirm(
+            "Do you really want to resolve this chatroom?"
+          )
+          if (confirmBox === true) {
+            resolveChatroom({ variables: { id: chatroom.id } })
+          }
+        }}
+      >
+        Resolve
+      </Button>
+    } else {
+      return <></>
+    }
+  }
 
   const CancelAndSaveButtons = (<>
     <Button
@@ -119,20 +139,7 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
           />
         </Box>
         <Box>
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={() => {
-              const confirmBox = window.confirm(
-                "Do you really want to resolve this chatroom?"
-              )
-              if (confirmBox === true) {
-                resolveChatroom({ variables: { id: chatroom.id } })
-              }
-            }}
-          >
-            Resolve
-          </Button>
+          {ResolveButton()}
           <IconButton onClick={() => setShowDetails(!showDetails)}>
             {showDetails ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
           </IconButton>
