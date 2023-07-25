@@ -1,6 +1,7 @@
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { AddComment, Edit, KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Card,
   CardProps,
   Collapse,
@@ -10,7 +11,7 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-import { ChatroomDataFragment } from "~src/codegen/graphql";
+import { ChatroomDataFragment, ChatroomsListDocument, useResolveChatroomMutation} from "~src/codegen/graphql";
 import { ChatroomTags } from "./ChatroomTags";
 
 const ChatroomCard = styled(Card)<CardProps>(({ theme }) => ({
@@ -29,6 +30,10 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
 }) => {
   const [showDetails, setShowDetails] = useState(false);
 
+  const [resolveChatroom] = useResolveChatroomMutation({
+    refetchQueries: [ChatroomsListDocument],
+  });
+
   const natureCodeName = chatroom.natureCode?.name ?? "Uncategorized";
 
   return (
@@ -45,9 +50,28 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
             callerPhoneNumber={chatroom.callerPhoneNumber}
           />
         </Box>
-        <IconButton onClick={() => setShowDetails(!showDetails)}>
-          {showDetails ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-        </IconButton>
+        <Box>
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() => {
+              const confirmBox = window.confirm(
+                "Do you really want to resolve this chatroom?"
+              )
+              if (confirmBox === true) {
+                console.log("should resolve id " + chatroom.id )
+                resolveChatroom({ variables: { id: chatroom.id } })
+              } else {
+                console.log("declined to resolve id " + chatroom.id)
+              }
+            }}
+          >
+            Resolve
+          </Button>
+          <IconButton onClick={() => setShowDetails(!showDetails)}>
+            {showDetails ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+          </IconButton>
+        </Box>
       </Box>
       <Collapse in={showDetails}>
         <Card sx={{ padding: 2 }}>
@@ -55,6 +79,14 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
           <Typography variant="body2">
             {chatroom.description ?? "No description provided."}
           </Typography>
+          <Button
+            size="small"
+            variant="text"
+            startIcon={<Edit />}
+            //onClick={() => setShowResolveChatroomModal(true)}
+          >
+            Edit
+          </Button>
         </Card>
       </Collapse>
     </ChatroomCard>
