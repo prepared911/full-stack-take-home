@@ -36,7 +36,7 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
   const [descriptionFormText, setDescriptionFormText] = useState(chatroom.description);
 
   const [resolveChatroom] = useResolveChatroomMutation({
-    refetchQueries: [ChatroomsListDocument, ArchivedChatroomsListDocument], // TODO(awu): this needs to update the archived list as well
+    refetchQueries: [ChatroomsListDocument], // for whatever reason, adding  ArchivedChatroomsListDocument to this list doesn't update the archived page.  maybe because it's on a different page
   });
 
   const [updateChatroomDescription] = useUpdateChatroomDescriptionMutation();

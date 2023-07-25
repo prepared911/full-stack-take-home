@@ -4,7 +4,11 @@ import { useArchivedChatroomsListQuery } from "~src/codegen/graphql";
 import { ChatroomsList } from "./ChatroomsList";
 
 export const ArchivePage: React.FC = () => {
-  const { data, loading } = useArchivedChatroomsListQuery();
+  const { data, loading } = useArchivedChatroomsListQuery(
+    {
+      fetchPolicy: 'network-only', // Doesn't check cache before making a network request
+    }
+  );
 
   const chatrooms = data?.chatrooms ?? [];
 
