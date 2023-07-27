@@ -1,0 +1,17 @@
+mutation EditChatroom(
+  $id: ID!
+  $description: String
+  $resolved: Boolean
+) {
+  editChatroom(
+    input: {
+      id: $id
+      description: $description
+      resolved: $resolved
+    }
+  ) {
+    chatroom {
+      ...ChatroomData
+    }
+  }
+}
