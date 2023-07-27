@@ -1,6 +1,7 @@
 import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
 import {
   Box,
+  Button,
   Card,
   CardProps,
   Collapse,
@@ -12,6 +13,7 @@ import { useState } from "react";
 
 import { ChatroomDataFragment } from "~src/codegen/graphql";
 import { ChatroomTags } from "./ChatroomTags";
+import { EditChatroomModal } from "./EditChatroomModal";
 
 const ChatroomCard = styled(Card)<CardProps>(({ theme }) => ({
   display: "flex",
@@ -28,6 +30,7 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
   chatroom,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [showEditDescriptionModal, setShowEditDescriptionModal] = useState(false);
 
   const natureCodeName = chatroom.natureCode?.name ?? "Uncategorized";
 
@@ -55,6 +58,18 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
           <Typography variant="body2">
             {chatroom.description ?? "No description provided."}
           </Typography>
+          <Button
+            size="small"
+            variant="contained"
+            onClick={() => setShowEditDescriptionModal(true)}
+          >
+            Edit
+          </Button>
+          <EditChatroomModal
+            chatroom={chatroom}
+            open={showEditDescriptionModal}
+            handleClose={() => setShowEditDescriptionModal(false)}
+          />
         </Card>
       </Collapse>
     </ChatroomCard>
