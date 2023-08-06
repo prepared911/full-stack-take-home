@@ -5,13 +5,16 @@ import {
   CardProps,
   Collapse,
   IconButton,
+  Button,
   Typography,
+  Container,
   styled,
 } from "@mui/material";
 import { useState } from "react";
 
-import { ChatroomDataFragment } from "~src/codegen/graphql";
+import { ChatroomDataFragment, useEditChatroomMutation } from "~src/codegen/graphql";
 import { ChatroomTags } from "./ChatroomTags";
+import { EditChatroomModal } from "./EditChatroomModal";
 
 const ChatroomCard = styled(Card)<CardProps>(({ theme }) => ({
   display: "flex",
@@ -28,11 +31,13 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
   chatroom,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [showEditChatroomModal, setShowEditChatroomModal] = useState(false);
 
   const natureCodeName = chatroom.natureCode?.name ?? "Uncategorized";
 
   return (
-    <ChatroomCard variant="outlined">
+    <Container>
+      <ChatroomCard variant="outlined">
       <Box
         display="flex"
         alignItems="flex-start"
@@ -56,7 +61,16 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
             {chatroom.description ?? "No description provided."}
           </Typography>
         </Card>
+        <Box sx={{margin: "15px 0px"}}>
+          <Button variant="contained" color="primary" onClick={() => setShowEditChatroomModal(true)} style={{float: "right"}} >Edit</Button>
+        </Box>
       </Collapse>
     </ChatroomCard>
+    <EditChatroomModal
+    open={showEditChatroomModal}
+    defaultValues={{chatroomId: chatroom?.id, description: chatroom?.description}}
+    handleClose={() => setShowEditChatroomModal(false)}
+    />
+    </Container>
   );
 };
