@@ -69,9 +69,10 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
       </Collapse>
     </ChatroomCard>
     <EditChatroomModal
-    open={showEditChatroomModal}
+    open={showEditChatroomModal || showResolvedIncidentModal}
     defaultValues={{chatroomId: chatroom?.id, description: chatroom?.description}}
-    handleClose={() => setShowEditChatroomModal(false)}
+    handleClose={() => showResolvedIncidentModal ? setShowResolvedIncidentModal(false) : setShowEditChatroomModal(false)}
+    shouldResolve={showResolvedIncidentModal}
     />
     </Container>
   );

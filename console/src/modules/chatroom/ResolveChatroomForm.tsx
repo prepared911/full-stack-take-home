@@ -2,55 +2,35 @@ import {
     Box,
     Button,
     CircularProgress,
-    MenuItem,
-    Select,
-    SelectChangeEvent,
+    Checkbox,
+    FormControlLabel,
     TextField,
     Typography,
+    FormGroup
   } from "@mui/material";
   import { useState } from "react";
-  
-  export type EditChatroomFormState = {
-    description?: string | null;
+
+  export type ResolveChatroomFormState = {
     resolved?: boolean | null;
   };
   
-  export type EditChatroomFormProps = {
-    defaultValues: EditChatroomFormState;
+  export type ResolveChatroomFormProps = {
     handleClose: () => void;
-    onSubmit: (values: EditChatroomFormState) => Promise<void>;
+    onSubmit: (values: ResolveChatroomFormState) => Promise<void>;
   };
   
-  export const EditChatroomForm: React.FC<EditChatroomFormProps> = ({
-    defaultValues,
+  export const ResolveChatroomForm: React.FC<ResolveChatroomFormProps> = ({
     handleClose,
     onSubmit,
   }) => {
   
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [values, setValues] =
-      useState<EditChatroomFormState>({description: defaultValues?.description || ""});
-  
-    const handleTextChange: React.ChangeEventHandler<HTMLInputElement> = (
-      event
-    ) => {
-      const value = event.target.value;
-  
-      setValues({ description: value });
-    };
-  
-    const handleSelectChange = (event: SelectChangeEvent<string>) => {
-      setValues({
-        ...values,
-        [event.target.name]: event.target.value,
-      });
-    };
   
     const handleSubmit: React.FormEventHandler = async (event) => {
       event.preventDefault();
   
       setIsSubmitting(true);
-      await onSubmit(values);
+      await onSubmit({resolved: true});
       setIsSubmitting(false);
   
       handleClose();
@@ -59,19 +39,10 @@ import {
     return (
       <form onSubmit={handleSubmit}>
         <Typography variant="h6" sx={{ marginBottom: 4 }}>
-          Edit Chatroom Description
+          Are you sure you want to resolve this incident?
         </Typography>
         <Box display="flex" flexDirection="column" gap={2}>
-          <TextField
-            size="small"
-            label="Description"
-            name="description"
-            value={values.description}
-            onChange={handleTextChange}
-            rows={4}
-            multiline
-          />
-          <Box display="flex" justifyContent="flex-end" marginTop={4} gap={1}>
+          <Box display="flex" justifyContent="space-between" marginTop={4} gap={1}>
             <Button
               size="small"
               variant="text"

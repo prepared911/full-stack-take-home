@@ -8,7 +8,7 @@ module Mutations
       field :chatroom, Types::ChatroomType, null: false
   
       # resolver
-      def resolve(chatroom_id:, description: nil, resolved: false)
+      def resolve(chatroom_id:, description: "", resolved: false)
         params = { description:, resolved: }.compact_blank
         chatroom = Chatroom.update(chatroom_id, **params)
         

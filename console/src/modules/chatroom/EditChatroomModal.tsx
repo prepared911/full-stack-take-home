@@ -11,16 +11,20 @@ import {
   EditChatroomFormProps,
 } from "./EditChatroomForm";
 
+import { ResolveChatroomForm } from "./ResolveChatroomForm";
+
 
 export type EditChatroomModalProps = {
   open: boolean;
   defaultValues: EditChatroomMutationVariables;
+  shouldResolve: boolean;
   handleClose: () => void;
 };
 
 export const EditChatroomModal: React.FC<EditChatroomModalProps> = ({
   open,
   defaultValues,
+  shouldResolve,
   handleClose,
 }) => {
   const { chatroomId, description } = defaultValues;
@@ -31,11 +35,11 @@ export const EditChatroomModal: React.FC<EditChatroomModalProps> = ({
   });
 
   React.useEffect(() => {
-    if (open===true) EditChatroom();
+    if (open) EditChatroom();
   }, [newValues])
 
   const handleSubmit: EditChatroomFormProps["onSubmit"] = async (variables) => {
-    setNewValues({description: variables.description || "", chatroomId})
+    setNewValues({...variables, chatroomId})
   };
 
   return (
@@ -48,12 +52,18 @@ export const EditChatroomModal: React.FC<EditChatroomModalProps> = ({
         sx={{ inset: 0 }}
       >
         <Card variant="outlined" sx={{ minWidth: 400, padding: 2 }}>
-          {open && (
+          {open && !shouldResolve && (
             <EditChatroomForm
               onSubmit={handleSubmit}
               handleClose={handleClose}
               defaultValues={defaultValues}
             />
+          )}
+          {open && shouldResolve &&(
+            <ResolveChatroomForm
+            onSubmit={handleSubmit}
+            handleClose={handleClose}
+          />
           )}
         </Card>
       </Box>
