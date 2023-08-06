@@ -31,11 +31,11 @@ export const EditChatroomModal: React.FC<EditChatroomModalProps> = ({
   });
 
   React.useEffect(() => {
-    EditChatroom()
+    if (open===true) EditChatroom();
   }, [newValues])
 
   const handleSubmit: EditChatroomFormProps["onSubmit"] = async (variables) => {
-    setNewValues({chatroomId: defaultValues.chatroomId, ...variables})
+    setNewValues({description: variables.description || "", chatroomId})
   };
 
   return (
