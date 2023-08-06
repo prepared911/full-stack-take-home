@@ -1,11 +1,13 @@
 mutation EditChatroom(
   $description: String
   $chatroomId: ID!
+  $resolved: Boolean
 ) {
   editChatroom(
     input: {
       chatroomId: $chatroomId
       description: $description
+      resolved: $resolved
     },
   ) {
     chatroom {

@@ -32,6 +32,7 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [showEditChatroomModal, setShowEditChatroomModal] = useState(false);
+  const [showResolvedIncidentModal, setShowResolvedIncidentModal] = useState(false);
 
   const natureCodeName = chatroom.natureCode?.name ?? "Uncategorized";
 
@@ -61,8 +62,9 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
             {chatroom.description ?? "No description provided."}
           </Typography>
         </Card>
-        <Box sx={{margin: "15px 0px"}}>
-          <Button variant="contained" color="primary" onClick={() => setShowEditChatroomModal(true)} style={{float: "right"}} >Edit</Button>
+        <Box display={"flex"} justifyContent={"flex-end"} sx={{margin: "15px 0px"}}>
+          <Button variant="text" color="primary" onClick={() => setShowEditChatroomModal(true)} style={{float: "left"}} >Edit</Button>
+          <Button variant="contained" color="primary" onClick={() => setShowResolvedIncidentModal(true)} style={{float: "right"}} >Resolve</Button>
         </Box>
       </Collapse>
     </ChatroomCard>
