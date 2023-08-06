@@ -1,17 +1,11 @@
 mutation EditChatroom(
-  $label: String!
-  $callerPhoneNumber: String!
   $description: String
-  $natureCodeId: ID
   $chatroomId: ID!
 ) {
   editChatroom(
     input: {
       chatroomId: $chatroomId
-      label: $label
-      callerPhoneNumber: $callerPhoneNumber
       description: $description
-      natureCodeId: $natureCodeId
     },
   ) {
     chatroom {
