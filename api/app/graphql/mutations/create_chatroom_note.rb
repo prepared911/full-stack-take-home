@@ -9,7 +9,7 @@ module Mutations
       # resolver
       def resolve(note:, chatroom_id: nil)
         params = { note:, chatroom_id: }.compact_blank
-        chatroom_note = ChatroomNote.create(**params, resolved: false)
+        chatroom_note = ChatroomNote.create(**params)
         
         {
             chatroom_note: chatroom_note
