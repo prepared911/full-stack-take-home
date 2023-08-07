@@ -27,7 +27,6 @@ RSpec.describe "ChatroomNotes", type: :request do
       post '/graphql', params: { query:, variables: }
 
       response_json = JSON.parse(response.body)
-      puts response_json
       chatroom_note_ids = response_json['data']['chatroomNotes'].map { |chatroom_note| chatroom_note['id'] }
       response_chatroom_notes = ChatroomNote.where(id: chatroom_note_ids)
       
