@@ -1,0 +1,15 @@
+mutation CreateChatroomNote(
+  $note: String
+  $chatroomId: ID!
+) {
+  createChatroomNote(
+    input: {
+      note: $note
+      chatroomId: $chatroomId
+    }
+  ) {
+    chatroomNote {
+      ...ChatroomNoteData
+    }
+  }
+}
