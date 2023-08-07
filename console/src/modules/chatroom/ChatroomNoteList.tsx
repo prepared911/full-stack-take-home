@@ -23,7 +23,7 @@ export const ChatroomNotesList: React.FC<ChatroomsNoteListProps> = ({
   }
 
   return (
-    <Box display="flex" flexDirection="row" gap={1}>
+    <Box display="flex" flexDirection="column" gap={1}>
       {chatroomNotes && chatroomNotes.length === 0 && (
         <Alert severity="info" variant="outlined">
           No chatroom notes.

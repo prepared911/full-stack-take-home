@@ -10,9 +10,11 @@ import {
 
 import { ChatroomNoteDataFragment } from "~src/codegen/graphql";
 
+import { formatDateTime } from "../utils/formatDateTime";
+
 const ChatroomNoteCard = styled(Card)<CardProps>(({ theme }) => ({
   display: "flex",
-  flexDirection: "row",
+  flexDirection: "column",
   gap: theme.spacing(1),
   padding: theme.spacing(2),
 }));
@@ -28,13 +30,12 @@ export const ChatroomNoteListItem: React.FC<ChatroomNoteListItemProps> = ({
   return (
     <Container>
       <ChatroomNoteCard variant="outlined">
+      <Typography variant="body1">{`Created at: ${formatDateTime(chatroomNote.createdAt)}`}</Typography>
       <Box
         display="flex"
         alignItems="flex-start"
       >
-        <Box>
-            <Typography variant="h8">{chatroomNote?.note}</Typography>
-        </Box>
+        <Typography variant="body2">{chatroomNote?.note}</Typography>
       </Box>
     </ChatroomNoteCard>
     </Container>

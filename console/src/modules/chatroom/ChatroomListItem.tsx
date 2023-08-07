@@ -20,6 +20,7 @@ import { EditChatroomModal } from "./EditChatroomModal";
 import { ChatroomTabPanel } from "./ChatroomTabPanel";
 import { ChatroomNotesList } from "./ChatroomNoteList";
 import { CreateChatroomNoteModal } from "./CreateChatroomNoteModal";
+import { ChatroomDetails } from "./ChatroomDetails";
 
 const ChatroomCard = styled(Card)<CardProps>(({ theme }) => ({
   display: "flex",
@@ -97,13 +98,7 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
           )}
         </ChatroomTabPanel>
         <ChatroomTabPanel value={tabValue} index={1}>
-            <Card sx={{ padding: 2 }}>
-              <Typography variant="body1">Notes</Typography>
-              <ChatroomNotesList loading={loading} chatroomNotes={data?.chatroomNotes} />
-            </Card>
-            <Box display={"flex"} justifyContent={"flex-end"} sx={{margin: "15px 0px"}}>
-                <Button variant="contained" color="primary" onClick={() => setShowAddChatroomNoteModal(true)} style={{float: "right"}}>Add</Button>
-            </Box>
+            <ChatroomDetails chatroom={chatroom} />
         </ChatroomTabPanel>
       </Collapse>
     </ChatroomCard>
@@ -113,7 +108,6 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
     handleClose={() => showResolvedIncidentModal ? setShowResolvedIncidentModal(false) : setShowEditChatroomModal(false)}
     shouldResolve={showResolvedIncidentModal}
     />
-    <CreateChatroomNoteModal open={showAddChatroomNoteModal} chatroomId={chatroom?.id} handleClose={() => setShowAddChatroomNoteModal(false)} />
     </Container>
   );
 };
