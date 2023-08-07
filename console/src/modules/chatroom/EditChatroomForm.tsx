@@ -66,7 +66,7 @@ import {
             size="small"
             label="Description"
             name="description"
-            value={values.description}
+            value={values.description || ""}
             onChange={handleTextChange}
             rows={4}
             multiline
