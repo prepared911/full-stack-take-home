@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Box, Card, Modal } from "@mui/material";
+import { Box, Card, Modal, Typography, Alert } from "@mui/material";
 import {
   ChatroomsListDocument,
   useEditChatroomMutation,
@@ -12,6 +12,7 @@ import {
 } from "./EditChatroomForm";
 
 import { ResolveChatroomForm } from "./ResolveChatroomForm";
+import { red } from "@mui/material/colors";
 
 
 export type EditChatroomModalProps = {
@@ -29,14 +30,23 @@ export const EditChatroomModal: React.FC<EditChatroomModalProps> = ({
 }) => {
   const { chatroomId, description } = defaultValues;
   const [newValues, setNewValues] = React.useState(defaultValues)
-  const [EditChatroom] = useEditChatroomMutation({
+  const [EditChatroom, { error }] = useEditChatroomMutation({
     refetchQueries: [ChatroomsListDocument],
     variables: newValues
   });
 
   React.useEffect(() => {
     if (open) EditChatroom();
-  }, [newValues])
+  }, [newValues]);
+
+  if (error) {
+    return (
+      <Alert severity="error">
+        <Typography>Something went wrong.</Typography>
+        {error?.message && <Typography>{error.message}</Typography>}
+      </Alert>
+    )
+  }
 
   const handleSubmit: EditChatroomFormProps["onSubmit"] = async (variables) => {
     setNewValues({...variables, chatroomId})
