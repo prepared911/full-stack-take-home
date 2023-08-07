@@ -177,6 +177,13 @@ export type CreateChatroomNoteMutationVariables = Exact<{
 
 export type CreateChatroomNoteMutation = { __typename?: 'Mutation', createChatroomNote?: { __typename?: 'CreateChatroomNotePayload', chatroomNote: { __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string } } | null };
 
+export type DeleteChatroomNoteMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeleteChatroomNoteMutation = { __typename?: 'Mutation', deleteChatroomNote?: { __typename?: 'DeleteChatroomNotePayload', chatroomNote: { __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string } } | null };
+
 export type EditChatroomMutationVariables = Exact<{
   description?: InputMaybe<Scalars['String']['input']>;
   chatroomId: Scalars['ID']['input'];
@@ -314,6 +321,41 @@ export function useCreateChatroomNoteMutation(baseOptions?: Apollo.MutationHookO
 export type CreateChatroomNoteMutationHookResult = ReturnType<typeof useCreateChatroomNoteMutation>;
 export type CreateChatroomNoteMutationResult = Apollo.MutationResult<CreateChatroomNoteMutation>;
 export type CreateChatroomNoteMutationOptions = Apollo.BaseMutationOptions<CreateChatroomNoteMutation, CreateChatroomNoteMutationVariables>;
+export const DeleteChatroomNoteDocument = gql`
+    mutation DeleteChatroomNote($id: ID!) {
+  deleteChatroomNote(input: {id: $id}) {
+    chatroomNote {
+      ...ChatroomNoteData
+    }
+  }
+}
+    ${ChatroomNoteDataFragmentDoc}`;
+export type DeleteChatroomNoteMutationFn = Apollo.MutationFunction<DeleteChatroomNoteMutation, DeleteChatroomNoteMutationVariables>;
+
+/**
+ * __useDeleteChatroomNoteMutation__
+ *
+ * To run a mutation, you first call `useDeleteChatroomNoteMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteChatroomNoteMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [deleteChatroomNoteMutation, { data, loading, error }] = useDeleteChatroomNoteMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteChatroomNoteMutation(baseOptions?: Apollo.MutationHookOptions<DeleteChatroomNoteMutation, DeleteChatroomNoteMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<DeleteChatroomNoteMutation, DeleteChatroomNoteMutationVariables>(DeleteChatroomNoteDocument, options);
+      }
+export type DeleteChatroomNoteMutationHookResult = ReturnType<typeof useDeleteChatroomNoteMutation>;
+export type DeleteChatroomNoteMutationResult = Apollo.MutationResult<DeleteChatroomNoteMutation>;
+export type DeleteChatroomNoteMutationOptions = Apollo.BaseMutationOptions<DeleteChatroomNoteMutation, DeleteChatroomNoteMutationVariables>;
 export const EditChatroomDocument = gql`
     mutation EditChatroom($description: String, $chatroomId: ID!, $resolved: Boolean) {
   editChatroom(

@@ -1,0 +1,13 @@
+mutation DeleteChatroomNote(
+  $id: ID!
+) {
+  deleteChatroomNote(
+    input: {
+      id: $id
+    }
+  ) {
+    chatroomNote {
+        ...ChatroomNoteData
+    }
+  }
+}

@@ -11,7 +11,7 @@ module Mutations
         return { errors: 'Chaatroom note not found' } if chatroom_note.nil?
         
         chatroom_note.destroy
-        { chatroom_note: chatroom_note.reload, deleted_id: id }
+        { chatroom_note: chatroom_note.reload }
       end
     end
   end
