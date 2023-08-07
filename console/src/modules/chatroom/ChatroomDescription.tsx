@@ -36,4 +36,4 @@ export const ChatroomDescription: React.FC<ChatroomListItemProps> = ({ chatroom 
         />
     </Container>
   )
-} 
+}

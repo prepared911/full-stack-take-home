@@ -95,4 +95,3 @@ export const CreateChatroomNoteForm: React.FC<CreateChatroomNoteFormProps> = ({
     </form>
   );
 };
-  

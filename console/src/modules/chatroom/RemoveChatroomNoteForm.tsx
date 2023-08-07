@@ -62,4 +62,3 @@ export const RemoveChatroomNoteForm: React.FC<RemoveChatroomNoteFormProps> = ({
     </form>
   );
 };
-  

@@ -12,22 +12,21 @@ interface ChatroomTabPanelProps {
 const TABS = ["description", "notes"];
 
 export function ChatroomTabPanel(props: ChatroomTabPanelProps) {
-    const { children, value, index, ...other } = props;
-  
-    return (
-      <div
-        role="tabpanel"
-        hidden={value !== TABS[index]}
-        id={`chatroom-tab-${index}`}
-        aria-labelledby={`chatroom-tab-${index}`}
-        {...other}
-      >
-        {value === TABS[index] && (
-          <Box sx={{ p: 3 }}>
-            {children}
-          </Box>
-        )}
-      </div>
-    );
-}
+  const { children, value, index, ...other } = props;
 
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== TABS[index]}
+      id={`chatroom-tab-${index}`}
+      aria-labelledby={`chatroom-tab-${index}`}
+      {...other}
+    >
+      {value === TABS[index] && (
+        <Box sx={{ p: 3 }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
+}
