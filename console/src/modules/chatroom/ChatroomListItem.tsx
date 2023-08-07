@@ -5,7 +5,6 @@ import {
   CardProps,
   Collapse,
   IconButton,
-  Button,
   Tabs,
   Tab,
   Typography,
@@ -14,13 +13,11 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-import { ChatroomDataFragment, useChatroomNotesListQuery } from "~src/codegen/graphql";
+import { ChatroomDataFragment } from "~src/codegen/graphql";
 import { ChatroomTags } from "./ChatroomTags";
-import { EditChatroomModal } from "./EditChatroomModal";
 import { ChatroomTabPanel } from "./ChatroomTabPanel";
-import { ChatroomNotesList } from "./ChatroomNoteList";
-import { CreateChatroomNoteModal } from "./CreateChatroomNoteModal";
 import { ChatroomDetails } from "./ChatroomDetails";
+import { ChatroomDescription } from "./ChatroomDescription";
 
 const ChatroomCard = styled(Card)<CardProps>(({ theme }) => ({
   display: "flex",
@@ -45,11 +42,6 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
 }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [tabValue, setTabValue] = useState("description");
-  const [showEditChatroomModal, setShowEditChatroomModal] = useState(false);
-  const [showResolvedIncidentModal, setShowResolvedIncidentModal] = useState(false);
-
-  const [showAddChatroomNoteModal, setShowAddChatroomNoteModal] = useState(false);
-  const { data, loading } = useChatroomNotesListQuery({ variables: { chatroomId: chatroom.id } })
 
   const natureCodeName = chatroom.natureCode?.name ?? "Uncategorized";
 
@@ -84,30 +76,13 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
           </Tabs>
         </Box>
         <ChatroomTabPanel value={tabValue} index={0} >
-          <Card sx={{ padding: 2 }}>
-            <Typography variant="body1">Description</Typography>
-            <Typography variant="body2">
-              {chatroom.description ?? "No description provided."}
-            </Typography>
-          </Card>
-          {!chatroom?.resolved && (
-          <Box display={"flex"} justifyContent={"flex-end"} sx={{margin: "15px 0px"}}>
-            <Button variant="text" color="primary" onClick={() => setShowEditChatroomModal(true)} style={{float: "left"}} >Edit</Button>
-            <Button variant="contained" color="primary" onClick={() => setShowResolvedIncidentModal(true)} style={{float: "right"}} >Resolve</Button>
-          </Box>
-          )}
+          <ChatroomDescription chatroom={chatroom} />
         </ChatroomTabPanel>
         <ChatroomTabPanel value={tabValue} index={1}>
-            <ChatroomDetails chatroom={chatroom} />
+          <ChatroomDetails chatroom={chatroom} />
         </ChatroomTabPanel>
       </Collapse>
     </ChatroomCard>
-    <EditChatroomModal
-    open={showEditChatroomModal || showResolvedIncidentModal}
-    defaultValues={{chatroomId: chatroom?.id, description: chatroom?.description}}
-    handleClose={() => showResolvedIncidentModal ? setShowResolvedIncidentModal(false) : setShowEditChatroomModal(false)}
-    shouldResolve={showResolvedIncidentModal}
-    />
     </Container>
   );
 };
