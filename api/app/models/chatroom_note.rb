@@ -1,3 +1,3 @@
 class ChatroomNote < ApplicationRecord
-  belongs_to :chatroom, optional: false
+  belongs_to :chatroom
 end
