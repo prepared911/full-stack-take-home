@@ -5,13 +5,16 @@ import {
   CardProps,
   Typography,
   Container,
+  Button,
   styled,
 } from "@mui/material";
 import { useState } from "react";
 
-import { ChatroomNoteDataFragment, useDeleteChatroomNoteMutation } from "~src/codegen/graphql";
+import { ChatroomNoteDataFragment } from "~src/codegen/graphql";
 
 import { formatDateTime } from "../utils/formatDateTime";
+
+import { RemoveChatroomNoteModal } from "./RemoveChatroomNoteModal";
 
 const ChatroomNoteCard = styled(Card)<CardProps>(({ theme }) => ({
   display: "flex",
@@ -28,12 +31,14 @@ export const ChatroomNoteListItem: React.FC<ChatroomNoteListItemProps> = ({
   chatroomNote,
 }) => {
   const [showRemoveChatroomNoteModal, setShowRemoveChatroomNoteModal] = useState(false);
-  const [deleteChatroomNoteMutation, { error }] = useDeleteChatroomNoteMutation({ variables: { id: chatroomNote.id } });
 
   return (
     <Container>
       <ChatroomNoteCard variant="outlined">
-      <Typography variant="body1">{`Created at: ${formatDateTime(chatroomNote.createdAt)}`}</Typography>
+        <Box display={"inline-flex"} justifyContent={"space-between"}>
+            <Typography variant="body1">{`Created at: ${formatDateTime(chatroomNote.createdAt)}`}</Typography>
+            <Button color="primary" variant="outlined" onClick={() => setShowRemoveChatroomNoteModal(true)}>Delete note</Button>
+        </Box>
       <Box
         display="flex"
         alignItems="flex-start"
@@ -41,7 +46,7 @@ export const ChatroomNoteListItem: React.FC<ChatroomNoteListItemProps> = ({
         <Typography variant="body2">{chatroomNote?.note}</Typography>
       </Box>
     </ChatroomNoteCard>
-    {/* <CreateChatroomNoteModal open={showAddChatroomNoteModal} chatroomId={chatroom?.id} handleClose={() => setShowAddChatroomNoteModal(false)} /> */}
+    <RemoveChatroomNoteModal open={showRemoveChatroomNoteModal} id={chatroomNote?.id} handleClose={() => setShowRemoveChatroomNoteModal(false)} />
     </Container>
   );
 };

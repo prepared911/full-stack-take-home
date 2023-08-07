@@ -2,20 +2,16 @@ import {
     Box,
     Button,
     CircularProgress,
-    Typography
+    Typography,
   } from "@mui/material";
   import { useState } from "react";
 
-  export type ResolveChatroomFormState = {
-    resolved?: boolean | null;
-  };
-  
-  export type ResolveChatroomFormProps = {
+  export type RemoveChatroomNoteFormProps = {
     handleClose: () => void;
-    onSubmit: (values: ResolveChatroomFormState) => Promise<void>;
+    onSubmit: () => Promise<void>;
   };
   
-  export const ResolveChatroomForm: React.FC<ResolveChatroomFormProps> = ({
+  export const RemoveChatroomNoteForm: React.FC<RemoveChatroomNoteFormProps> = ({
     handleClose,
     onSubmit,
   }) => {
@@ -26,7 +22,7 @@ import {
       event.preventDefault();
   
       setIsSubmitting(true);
-      await onSubmit({resolved: true});
+      await onSubmit();
       setIsSubmitting(false);
   
       handleClose();
@@ -35,7 +31,7 @@ import {
     return (
       <form onSubmit={handleSubmit}>
         <Typography variant="h6" sx={{ marginBottom: 4 }}>
-          Are you sure you want to resolve this incident?
+          Are you sure you want to delete this note?
         </Typography>
         <Box display="flex" flexDirection="column" gap={2}>
           <Box display="flex" justifyContent="space-between" marginTop={4} gap={1}>
@@ -58,7 +54,7 @@ import {
                 ) : null
               }
             >
-              Submit
+              Delete
             </Button>
           </Box>
         </Box>

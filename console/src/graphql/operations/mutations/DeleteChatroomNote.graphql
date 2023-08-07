@@ -6,8 +6,6 @@ mutation DeleteChatroomNote(
       id: $id
     }
   ) {
-    chatroomNote {
-        ...ChatroomNoteData
-    }
+    success
   }
 }
