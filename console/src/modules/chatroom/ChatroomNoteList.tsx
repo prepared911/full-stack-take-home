@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { Alert, Box, CircularProgress, Button } from "@mui/material";
+import { Typography, Box, CircularProgress } from "@mui/material";
 import { ChatroomNote } from "~src/codegen/graphql";
 
 import { ChatroomNoteListItem } from "./ChatroomNoteListItem";
@@ -25,9 +24,9 @@ export const ChatroomNotesList: React.FC<ChatroomsNoteListProps> = ({
   return (
     <Box display="flex" flexDirection="column" gap={1}>
       {chatroomNotes && chatroomNotes.length === 0 && (
-        <Alert severity="info" variant="outlined">
+        <Typography variant="body2">
           No chatroom notes.
-        </Alert>
+        </Typography>
       )}
       {chatroomNotes && chatroomNotes.map((chatroomNote) => (
         <ChatroomNoteListItem key={chatroomNote.id} chatroomNote={chatroomNote} />

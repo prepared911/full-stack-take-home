@@ -15,8 +15,9 @@ import {
 
   const isFormValid = (formState: EditChatroomFormState): boolean => {
     const hasDescription = formState?.description && formState?.description?.length > 0;
+    const updatingResolved = formState?.resolved && formState?.resolved === true;
   
-    return !!hasDescription;
+    return !!hasDescription || !!updatingResolved;
   };
   
   export type EditChatroomFormProps = {
