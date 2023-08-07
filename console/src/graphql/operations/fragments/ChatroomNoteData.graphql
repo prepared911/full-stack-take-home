@@ -1,0 +1,5 @@
+fragment ChatroomNoteData on ChatroomNote {
+  id
+  note
+  chatroomId
+}

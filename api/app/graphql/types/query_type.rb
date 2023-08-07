@@ -17,7 +17,6 @@ module Types
     end
 
     def chatroom_notes(chatroom_id:)
-      binding.pry
       ChatroomNote.where(chatroom_id: chatroom_id).order(created_at: :desc)
     end
   end
