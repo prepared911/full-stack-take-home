@@ -31,6 +31,7 @@ export type Chatroom = {
 export type ChatroomNote = {
   __typename?: 'ChatroomNote';
   chatroomId?: Maybe<Scalars['ID']['output']>;
+  createdAt: Scalars['String']['output'];
   id: Scalars['ID']['output'];
   note?: Maybe<Scalars['String']['output']>;
 };
@@ -152,9 +153,9 @@ export type QueryChatroomsArgs = {
   resolved?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
-export type ChatroomDataFragment = { __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null }> | null };
+export type ChatroomDataFragment = { __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string }> | null };
 
-export type ChatroomNoteDataFragment = { __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null };
+export type ChatroomNoteDataFragment = { __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string };
 
 export type NatureCodeDataFragment = { __typename?: 'NatureCode', id: string, name: string };
 
@@ -166,7 +167,7 @@ export type CreateChatroomMutationVariables = Exact<{
 }>;
 
 
-export type CreateChatroomMutation = { __typename?: 'Mutation', createChatroom?: { __typename?: 'CreateChatroomPayload', chatroom: { __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null }> | null } } | null };
+export type CreateChatroomMutation = { __typename?: 'Mutation', createChatroom?: { __typename?: 'CreateChatroomPayload', chatroom: { __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string }> | null } } | null };
 
 export type CreateChatroomNoteMutationVariables = Exact<{
   note?: InputMaybe<Scalars['String']['input']>;
@@ -174,7 +175,7 @@ export type CreateChatroomNoteMutationVariables = Exact<{
 }>;
 
 
-export type CreateChatroomNoteMutation = { __typename?: 'Mutation', createChatroomNote?: { __typename?: 'CreateChatroomNotePayload', chatroomNote: { __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null } } | null };
+export type CreateChatroomNoteMutation = { __typename?: 'Mutation', createChatroomNote?: { __typename?: 'CreateChatroomNotePayload', chatroomNote: { __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string } } | null };
 
 export type EditChatroomMutationVariables = Exact<{
   description?: InputMaybe<Scalars['String']['input']>;
@@ -183,24 +184,24 @@ export type EditChatroomMutationVariables = Exact<{
 }>;
 
 
-export type EditChatroomMutation = { __typename?: 'Mutation', editChatroom?: { __typename?: 'EditChatroomPayload', chatroom: { __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null }> | null } } | null };
+export type EditChatroomMutation = { __typename?: 'Mutation', editChatroom?: { __typename?: 'EditChatroomPayload', chatroom: { __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string }> | null } } | null };
 
 export type ArchivedChatroomsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ArchivedChatroomsListQuery = { __typename?: 'Query', chatrooms: Array<{ __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null }> | null }> };
+export type ArchivedChatroomsListQuery = { __typename?: 'Query', chatrooms: Array<{ __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string }> | null }> };
 
 export type ChatroomNotesListQueryVariables = Exact<{
   chatroomId: Scalars['ID']['input'];
 }>;
 
 
-export type ChatroomNotesListQuery = { __typename?: 'Query', chatroomNotes: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null }> };
+export type ChatroomNotesListQuery = { __typename?: 'Query', chatroomNotes: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string }> };
 
 export type ChatroomsListQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ChatroomsListQuery = { __typename?: 'Query', chatrooms: Array<{ __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null }> | null }> };
+export type ChatroomsListQuery = { __typename?: 'Query', chatrooms: Array<{ __typename?: 'Chatroom', id: string, label: string, description?: string | null, callerPhoneNumber: string, resolved: boolean, natureCode?: { __typename?: 'NatureCode', id: string, name: string } | null, chatroomNotes?: Array<{ __typename?: 'ChatroomNote', id: string, note?: string | null, chatroomId?: string | null, createdAt: string }> | null }> };
 
 export type NatureCodesQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -218,6 +219,7 @@ export const ChatroomNoteDataFragmentDoc = gql`
   id
   note
   chatroomId
+  createdAt
 }
     `;
 export const ChatroomDataFragmentDoc = gql`

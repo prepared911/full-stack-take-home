@@ -18,6 +18,7 @@ type Chatroom {
 
 type ChatroomNote {
   chatroomId: ID
+  createdAt: String!
   id: ID!
   note: String
 }
