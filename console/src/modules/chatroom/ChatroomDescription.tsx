@@ -24,7 +24,9 @@ export const ChatroomDescription: React.FC<ChatroomListItemProps> = ({ chatroom 
        </Card>
        <Box display={"flex"} justifyContent={"flex-end"} sx={{margin: "15px 0px"}}>
           <Button variant="text" color="primary" onClick={() => setShowEditChatroomModal(true)} style={{float: "left"}} >Edit</Button>
-          <Button variant="contained" color="primary" onClick={() => setShowResolvedIncidentModal(true)} style={{float: "right"}} >Resolve</Button>
+          {!chatroom?.resolved && (
+            <Button variant="contained" color="primary" onClick={() => setShowResolvedIncidentModal(true)} style={{float: "right"}} >Resolve</Button>
+          )}
         </Box>
         <EditChatroomModal
         open={showEditChatroomModal || showResolvedIncidentModal}
