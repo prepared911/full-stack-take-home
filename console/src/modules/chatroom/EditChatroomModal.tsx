@@ -12,8 +12,6 @@ import {
 } from "./EditChatroomForm";
 
 import { ResolveChatroomForm } from "./ResolveChatroomForm";
-import { red } from "@mui/material/colors";
-
 
 export type EditChatroomModalProps = {
   open: boolean;
@@ -28,7 +26,7 @@ export const EditChatroomModal: React.FC<EditChatroomModalProps> = ({
   shouldResolve,
   handleClose,
 }) => {
-  const { chatroomId, description } = defaultValues;
+  const { chatroomId } = defaultValues;
   const [newValues, setNewValues] = React.useState(defaultValues)
   const [EditChatroom, { error }] = useEditChatroomMutation({
     refetchQueries: [ChatroomsListDocument],

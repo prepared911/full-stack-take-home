@@ -1,6 +1,5 @@
 import * as React from "react";
-import { Box, Card, Modal } from "@mui/material";
-import { useState } from "react";
+import { Box, Card, Modal, Alert, Typography } from "@mui/material";
 import {
   ChatroomNotesListDocument,
   useCreateChatroomNoteMutation,
@@ -22,14 +21,23 @@ export const CreateChatroomNoteModal: React.FC<CreateChatroomNoteModalProps> = (
   handleClose,
 }) => {
   const [chatroomNoteVariables, setChatroomNoteVariables] = React.useState({ note: "", chatroomId });
-  const [createChatroomNote] = useCreateChatroomNoteMutation({
+  const [createChatroomNote, { error }] = useCreateChatroomNoteMutation({
     refetchQueries: [ChatroomNotesListDocument],
     variables: chatroomNoteVariables
   });
 
   React.useEffect(() => {
     if (open) createChatroomNote();
-  }, [chatroomNoteVariables])
+  }, [chatroomNoteVariables]);
+
+  if (error) {
+    return (
+      <Alert severity="error">
+        <Typography>Something went wrong.</Typography>
+        {error?.message && <Typography>{error.message}</Typography>}
+      </Alert>
+    )
+  };
 
   const handleSubmit: CreateChatroomNoteFormProps["onSubmit"] = async (
     variables

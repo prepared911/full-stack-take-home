@@ -2,8 +2,6 @@ import {
     Box,
     Button,
     CircularProgress,
-    MenuItem,
-    Select,
     SelectChangeEvent,
     TextField,
     Typography,

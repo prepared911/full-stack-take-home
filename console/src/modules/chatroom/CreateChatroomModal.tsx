@@ -24,7 +24,7 @@ export const CreateChatroomModal: React.FC<CreateChatroomModalProps> = ({
   const handleSubmit: CreateChatroomFormProps["onSubmit"] = async (
     variables
   ) => {
-    createChatroom({ ...variables });
+    createChatroom({ variables });
   };
 
   return (
