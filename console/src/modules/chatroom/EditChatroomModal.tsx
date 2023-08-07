@@ -2,6 +2,7 @@ import * as React from "react";
 import { Box, Card, Modal, Typography, Alert } from "@mui/material";
 import {
   ChatroomsListDocument,
+  ArchivedChatroomsListDocument,
   useEditChatroomMutation,
   EditChatroomMutationVariables
 } from "~src/codegen/graphql";
@@ -29,7 +30,7 @@ export const EditChatroomModal: React.FC<EditChatroomModalProps> = ({
   const { chatroomId } = defaultValues;
   const [newValues, setNewValues] = React.useState(defaultValues)
   const [EditChatroom, { error }] = useEditChatroomMutation({
-    refetchQueries: [ChatroomsListDocument],
+    refetchQueries: [ChatroomsListDocument, ArchivedChatroomsListDocument],
     variables: newValues
   });
 
