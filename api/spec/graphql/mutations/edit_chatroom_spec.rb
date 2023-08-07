@@ -47,7 +47,6 @@ RSpec.describe "Mutations::EditChatroom", type: :request do
     expect { post '/graphql', params: { query:, variables: } }.to change { Chatroom.count }.from(0).to(1)
 
     response_json = JSON.parse(response.body)
-    puts response_json
 
     chatroom = Chatroom.find(response_json['data']['editChatroom']['chatroom']['id'])
     
