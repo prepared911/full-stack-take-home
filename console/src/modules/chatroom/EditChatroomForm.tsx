@@ -14,6 +14,12 @@ import {
     description?: string | null;
     resolved?: boolean | null;
   };
+
+  const isFormValid = (formState: EditChatroomFormState): boolean => {
+    const hasDescription = formState?.description && formState?.description?.length > 0;
+  
+    return !!hasDescription;
+  };
   
   export type EditChatroomFormProps = {
     defaultValues: EditChatroomFormState;
@@ -85,6 +91,7 @@ import {
               variant="contained"
               color="primary"
               type="submit"
+              disabled={!isFormValid(values)}
               startIcon={
                 isSubmitting ? (
                   <CircularProgress color="inherit" sx={{ fontSize: "1em" }} />
