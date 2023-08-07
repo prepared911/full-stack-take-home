@@ -1,8 +1,8 @@
+import * as React from "react";
 import {
     Box,
     Button,
     CircularProgress,
-    SelectChangeEvent,
     TextField,
     Typography,
   } from "@mui/material";
@@ -42,13 +42,6 @@ import {
       const value = event.target.value;
   
       setValues({ description: value });
-    };
-  
-    const handleSelectChange = (event: SelectChangeEvent<string>) => {
-      setValues({
-        ...values,
-        [event.target.name]: event.target.value,
-      });
     };
   
     const handleSubmit: React.FormEventHandler = async (event) => {

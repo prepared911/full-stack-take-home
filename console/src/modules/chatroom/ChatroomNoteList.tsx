@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Typography, Box, CircularProgress } from "@mui/material";
 import { ChatroomNote } from "~src/codegen/graphql";
 

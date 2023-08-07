@@ -1,15 +1,14 @@
 import * as React from "react";
 import {
     Box,
-    Card,
-    Typography,
   } from "@mui/material";
 
 interface ChatroomTabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: string;
-};
+}
+
 const TABS = ["description", "notes"];
 
 export function ChatroomTabPanel(props: ChatroomTabPanelProps) {
@@ -30,5 +29,5 @@ export function ChatroomTabPanel(props: ChatroomTabPanelProps) {
         )}
       </div>
     );
-};
+}
 

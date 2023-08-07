@@ -28,4 +28,4 @@ export const ChatroomDetails: React.FC<ChatroomListItemProps> = ({ chatroom }) =
         <CreateChatroomNoteModal open={showAddChatroomNoteModal} chatroomId={chatroom?.id} handleClose={() => setShowAddChatroomNoteModal(false)} />
     </Container>
   )
-} 
+}
