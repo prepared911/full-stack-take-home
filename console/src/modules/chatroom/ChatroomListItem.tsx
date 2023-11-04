@@ -1,4 +1,4 @@
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
+import { KeyboardArrowDown, KeyboardArrowUp, Edit, Save, Cancel } from "@mui/icons-material";
 import {
   Box,
   Card,
@@ -7,6 +7,7 @@ import {
   IconButton,
   Typography,
   styled,
+  Input,
 } from "@mui/material";
 import { useState } from "react";
 
@@ -28,8 +29,19 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
   chatroom,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedDescription, setEditedDescription] = useState(chatroom.description);
 
   const natureCodeName = chatroom.natureCode?.name ?? "Uncategorized";
+
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
+  const handleCancelClick = () => {
+    setIsEditing(false);
+    setEditedDescription(chatroom.description);
+  };
 
   return (
     <ChatroomCard variant="outlined">
