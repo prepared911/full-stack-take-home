@@ -1,0 +1,9 @@
+mutation UpdateChatroom($id: ID!, $description: String, $resolved: Boolean) {
+  updateChatroom(
+    input: { id: $id, description: $description, resolved: $resolved }
+  ) {
+    chatroom {
+      ...ChatroomData
+    }
+  }
+}
