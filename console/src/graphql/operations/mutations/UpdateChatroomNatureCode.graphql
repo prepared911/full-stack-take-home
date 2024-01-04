@@ -1,0 +1,7 @@
+mutation UpdateChatroomNatureCode($id: ID!, $natureCodeId: ID!) {
+  updateChatroomNatureCode(input: { id: $id, natureCodeId: $natureCodeId }) {
+    chatroom {
+      ...ChatroomData
+    }
+  }
+}

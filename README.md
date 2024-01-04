@@ -1,6 +1,6 @@
-# Full-Stack Take Home
+# Full-Stack Pairing
 
-This is the starter-code for our full-stack take home assessment. This project is split into two directories:
+This is the starter-code for our full-stack pairing assessment. This project is split into two directories:
 
 - `api/` is the Ruby on Rails API server.
 - `console/` is the React/TS frontend.
@@ -39,15 +39,7 @@ Before you get started, here are a few things to remember:
 
 Alright, let's get started! 🚀
 
-### Part 1 - Updating Chatroom Descriptions
-
-Users should be able to update a chatroom's description
-
-- Add an "Edit" button to chatroom list item descriptions
-- Clicking the "Edit" button should make the description editable and add two buttons: (1) cancel, and (2) save
-- If saved, the chatroom's description should be updated
-
-### Part 2 - Resolving Chatrooms
+### Part 1 - Resolving Chatrooms
 
 Users should be able to resolve chatrooms.
 
@@ -57,22 +49,24 @@ Users should be able to resolve chatrooms.
 
 **NOTE:** You'll need to modify Apollo's cache to remove the chatroom from the chatrooms page. Instead of modifying the cache, you can use Apollo's [`refetchQueries`](https://www.apollographql.com/docs/react/data/mutations/#refetching-queries) feature. Here's an [example](console/src/modules/chatroom/CreateChatroomModal.tsx) of `refetchQueries` being used with a mutation.
 
+### Part 2 - Fix Updating Nature Codes
+
+Some users have reported an issue with updating a Chatroom's nature code.
+
+To reproduce the bug:
+
+- Expand a chatroom in the chatrooms list
+- Select a new nature code using the select input on the right
+- Confirm that the nature code does not update properly
+
+Find the bug and fix it!
+
 ## Expectations
 
 - Correctness and completeness of the implemented features.
 - Code quality, including readability, maintainability, and adherence to best practices.
 - Proper use of Ruby on Rails, GraphQL, React, and TypeScript.
 - Error handling and validation.
-- Test coverage and quality.
-- Git usage and commit history.
-
-## Deliverables
-
-- Fork the provided GitHub repository and create a new branch for your changes.
-- Implement the required backend and frontend changes.
-- Commit your code to the branch with clear commit messages.
-- Push the branch to your forked repository.
-- Submit the link via email to your forked repository for evaluation.
 
 ## Getting Started
 

@@ -5,12 +5,17 @@ import {
   CardProps,
   Collapse,
   IconButton,
+  Stack,
   Typography,
   styled,
 } from "@mui/material";
 import { useState } from "react";
 
-import { ChatroomDataFragment } from "~src/codegen/graphql";
+import {
+  ChatroomDataFragment,
+  NatureCodeDataFragment,
+} from "~src/codegen/graphql";
+import { ChatroomListItemActions } from "./ChatroomListItemActions";
 import { ChatroomTags } from "./ChatroomTags";
 
 const ChatroomCard = styled(Card)<CardProps>(({ theme }) => ({
@@ -22,10 +27,12 @@ const ChatroomCard = styled(Card)<CardProps>(({ theme }) => ({
 
 export type ChatroomListItemProps = {
   chatroom: ChatroomDataFragment;
+  natureCodes: NatureCodeDataFragment[];
 };
 
 export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
   chatroom,
+  natureCodes,
 }) => {
   const [showDetails, setShowDetails] = useState(false);
 
@@ -51,10 +58,18 @@ export const ChatroomListItem: React.FC<ChatroomListItemProps> = ({
       </Box>
       <Collapse in={showDetails}>
         <Card sx={{ padding: 2 }}>
-          <Typography variant="body1">Description</Typography>
-          <Typography variant="body2">
-            {chatroom.description ?? "No description provided."}
-          </Typography>
+          <Stack direction="row" spacing={1}>
+            <Box flex={1}>
+              <Typography variant="body1">Description</Typography>
+              <Typography variant="body2">
+                {chatroom.description ?? "No description provided."}
+              </Typography>
+            </Box>
+            <ChatroomListItemActions
+              chatroom={chatroom}
+              natureCodes={natureCodes}
+            />
+          </Stack>
         </Card>
       </Collapse>
     </ChatroomCard>

@@ -2,15 +2,21 @@ import { AddComment } from "@mui/icons-material";
 import { Box, Button, Container, Typography } from "@mui/material";
 import { useState } from "react";
 
-import { useChatroomsListQuery } from "~src/codegen/graphql";
+import {
+  useChatroomsListQuery,
+  useNatureCodesQuery,
+} from "~src/codegen/graphql";
 import { ChatroomsList } from "./ChatroomsList";
 import { CreateChatroomModal } from "./CreateChatroomModal";
 
 export const ChatroomsPage: React.FC = () => {
-  const { data, loading } = useChatroomsListQuery();
+  const chatroomsListQuery = useChatroomsListQuery();
+  const natureCodesQuery = useNatureCodesQuery();
+
   const [showCreateChatroomModal, setShowCreateChatroomModal] = useState(false);
 
-  const chatrooms = data?.chatrooms ?? [];
+  const chatrooms = chatroomsListQuery?.data?.chatrooms ?? [];
+  const natureCodes = natureCodesQuery?.data?.natureCodes ?? [];
 
   return (
     <Container>
@@ -25,7 +31,11 @@ export const ChatroomsPage: React.FC = () => {
           New Chatroom
         </Button>
       </Box>
-      <ChatroomsList loading={loading} chatrooms={chatrooms} />
+      <ChatroomsList
+        loading={chatroomsListQuery.loading || natureCodesQuery.loading}
+        chatrooms={chatrooms}
+        natureCodes={natureCodes}
+      />
       <CreateChatroomModal
         open={showCreateChatroomModal}
         handleClose={() => setShowCreateChatroomModal(false)}

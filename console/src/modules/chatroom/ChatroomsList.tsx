@@ -1,16 +1,21 @@
 import { Alert, Box, CircularProgress } from "@mui/material";
-import { ChatroomDataFragment } from "~src/codegen/graphql";
+import {
+  ChatroomDataFragment,
+  NatureCodeDataFragment,
+} from "~src/codegen/graphql";
 
 import { ChatroomListItem } from "./ChatroomListItem";
 
 export type ChatroomsListProps = {
   loading?: boolean;
   chatrooms: ChatroomDataFragment[];
+  natureCodes: NatureCodeDataFragment[];
 };
 
 export const ChatroomsList: React.FC<ChatroomsListProps> = ({
   loading,
   chatrooms,
+  natureCodes,
 }) => {
   if (loading) {
     return (
@@ -28,7 +33,11 @@ export const ChatroomsList: React.FC<ChatroomsListProps> = ({
         </Alert>
       )}
       {chatrooms.map((chatroom) => (
-        <ChatroomListItem key={chatroom.id} chatroom={chatroom} />
+        <ChatroomListItem
+          key={chatroom.id}
+          chatroom={chatroom}
+          natureCodes={natureCodes}
+        />
       ))}
     </Box>
   );
