@@ -1,5 +1,5 @@
 {
-  "name": "console",
+  "name": "prepared-interview-console",
   "version": "1.0.0",
   "source": "src/index.html",
   "scripts": {
