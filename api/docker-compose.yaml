@@ -1,0 +1,20 @@
+version: "3.9"
+
+services:
+  interview-api:
+    image: interview-api:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    command: ["./entrypoint.sh"]
+    volumes:
+      - ${DUMMY_MOUNT:-.:/app}
+      - ./tmp:/app/tmp
+    tmpfs:
+      - /app/tmp/pids:uid=1000
+      - /app/log:uid=1000
+      - /tmp:uid=1000
+      - /tmp/.data:uid=1000
+    user: 0:0
